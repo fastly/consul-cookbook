@@ -8,9 +8,6 @@ default['consul']['service_name'] = 'consul'
 default['consul']['service_user'] = 'consul'
 default['consul']['service_group'] = 'consul'
 
-default['consul']['bag_name'] = 'secrets'
-default['consul']['bag_item'] = 'consul'
-
 default['consul']['config']['path'] = '/etc/consul.json'
 default['consul']['config']['data_dir'] = '/var/lib/consul'
 default['consul']['config']['ca_file'] = '/etc/consul/ssl/CA/ca.crt'
