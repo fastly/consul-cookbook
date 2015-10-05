@@ -131,23 +131,23 @@ module ConsulCookbook
             item = chef_vault_item(new_resource.bag_name, new_resource.bag_item)
             file new_resource.ca_file do
               content item[new_resource.bag_ca]
-              mode '0644'
-              owner new_resource.owner
+              mode '0444'
+              owner 'root'
               group new_resource.group
             end
 
             file new_resource.cert_file do
               content item[new_resource.bag_cert]
-              mode '0644'
-              owner new_resource.owner
+              mode '0444'
+              owner 'root'
               group new_resource.group
             end
 
             file new_resource.key_file do
               sensitive true
               content item[new_resource.bag_key]
-              mode '0640'
-              owner new_resource.owner
+              mode '0440'
+              owner 'root'
               group new_resource.group
             end
           end
