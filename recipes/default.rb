@@ -40,7 +40,12 @@ consul_service node['consul']['service_name'] do |r|
   group node['consul']['service_group']
   version node['consul']['version']
   config_file config.path
+  config_dir node['consul']['service']['config_dir']
+  data_dir node['consul']['config']['data_dir']
 
   node['consul']['service'].each_pair { |k, v| r.send(k, v) }
   subscribes :restart, "consul_config[#{config.name}]", :delayed
+  if config.tls?
+    subscribes :restart, "consul_config[#{config.cert_file}]", :delayed
+  end
 end
