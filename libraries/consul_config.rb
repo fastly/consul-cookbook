@@ -33,6 +33,18 @@ module ConsulCookbook
       # @return [String]
       attribute(:bag_item, kind_of: String, default: 'consul')
 
+      # @!attribute bag_ca
+      # @return [String]
+      attribute(:bag_ca, kind_of: String, default: 'ca_certificate')
+
+      # @!attribute bag_cert
+      # @return [String]
+      attribute(:bag_cert, kind_of: String, default: 'certificate')
+
+      # @!attribute bag_key
+      # @return [String]
+      attribute(:bag_key, kind_of: String, default: 'private_key')
+
       # @!attribute options
       # @return [Hash]
       attribute(:options, option_collector: true)
@@ -118,14 +130,14 @@ module ConsulCookbook
 
             item = chef_vault_item(new_resource.bag_name, new_resource.bag_item)
             file new_resource.ca_file do
-              content item['ca_certificate']
+              content item[new_resource.bag_ca]
               mode '0644'
               owner new_resource.owner
               group new_resource.group
             end
 
             file new_resource.cert_file do
-              content item['certificate']
+              content item[new_resource.bag_cert]
               mode '0644'
               owner new_resource.owner
               group new_resource.group
@@ -133,7 +145,7 @@ module ConsulCookbook
 
             file new_resource.key_file do
               sensitive true
-              content item['private_key']
+              content item[new_resource.bag_key]
               mode '0640'
               owner new_resource.owner
               group new_resource.group
